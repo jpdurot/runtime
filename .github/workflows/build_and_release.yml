@@ -6,6 +6,11 @@ on:
       tag:
         type: string
         description: Tagged version to build
+        required: false
+      commit:
+        type: string
+        required: false
+        description: SHA of the commit to build (no release will be produced)
   push:
     tags:
       - 'v*-*'
@@ -23,6 +28,7 @@ jobs:
         id: find-ref
         run: |
           [ -n "${{github.event.inputs.tag}}" ] && TAG="refs/tags/${{github.event.inputs.tag}}"
+          [ -n "${{github.event.inputs.commit}}" ] && TAG="${{github.event.inputs.commit}}"
           [ -z "$TAG" ] && [ -n "${{github.ref}}" ] && TAG="${{github.ref}}"
           echo ref-to-checkout=${TAG} >> $GITHUB_OUTPUT
 
@@ -35,7 +41,7 @@ jobs:
         run: |
           RUNTIME_VERSION=$(sed -n 's#.*<ProductVersion>\(.*\)</ProductVersion>#\1#p' < eng/Versions.props)
           VERSION_CHECKOUT=${{steps.find-ref.outputs.ref-to-checkout}}
-          regex="refs\/.*\/v(.*)-(.*)"
+          regex="refs\/tags\/v(.*)-(.*)"
           if [[ "$VERSION_CHECKOUT" =~ $regex ]]
           then
             RUNTIME_PATCH=${BASH_REMATCH[2]}
