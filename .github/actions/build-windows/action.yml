@@ -23,4 +23,4 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.output-artifact-name }}
-        path: artifacts/packages/${{ inputs.build-configuration }}/Shipping/aspnetcore-runtime-${{ inputs.version-runtime }}-${{ inputs.version-patch }}-linux-x64.tar.gz
+        path: artifacts/packages/${{ inputs.build-configuration }}/Shipping/dotnet-runtime-${{ inputs.version-runtime }}-${{ inputs.version-patch }}-win-x64.zip
