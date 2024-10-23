@@ -90,7 +90,7 @@ jobs:
           output-artifact-name: 'linux-runtime-debug'
           
 
-  build-windows:
+  build-windows-debug:
     runs-on: windows-latest
     needs: env-variables
     steps:
@@ -98,13 +98,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{env.CODE_VERSION}}
-      - name: Build CLR for Windows
-        run: .\build.cmd clr -c Release /p:OfficialBuildId=20201010.1
-      - name: Upload mscordaccore artifact
-        uses: actions/upload-artifact@v4
+      - name: Build
+        uses: ./.github/actions/build-windows
         with:
-          name: mscordaccore.dll
-          path: artifacts/bin/coreclr/Linux.x64.Release/x64/mscordaccore.dll
+          version-runtime: ${{needs.env-variables.outputs.runtime-version}}
+          version-patch: ${{needs.env-variables.outputs.runtime-patch}}
+          build-configuration: Debug
+          output-artifact-name: 'windows-runtime-debug'
+  build-windows-release:
+    runs-on: windows-latest
+    needs: env-variables
+    steps:
+      - name: Check out runtime source code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{env.CODE_VERSION}}
+      - name: Build
+        uses: ./.github/actions/build-windows
+        with:
+          version-runtime: ${{needs.env-variables.outputs.runtime-version}}
+          version-patch: ${{needs.env-variables.outputs.runtime-patch}}
+          build-configuration: Release
+          output-artifact-name: 'windows-runtime-release'
   package-and-release:
     runs-on: ubuntu-latest
     if: needs.env-variables.outputs.runtime-patch != 'dev'
@@ -115,7 +130,8 @@ jobs:
       - env-variables
       - build-linux-debug
       - build-linux-release
-      - build-windows
+      - build-windows-debug
+      - build-windows-release
     steps:
       - name: Download .Net runtime artifact
         uses: actions/download-artifact@v4
