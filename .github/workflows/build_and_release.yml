@@ -54,7 +54,7 @@ jobs:
 
           echo runtime-version=${RUNTIME_VERSION} >> $GITHUB_OUTPUT
           echo runtime-patch=${RUNTIME_PATCH} >> $GITHUB_OUTPUT
-  build-linux-debug:
+  build-linux-release:
     runs-on: ubuntu-latest
     needs: env-variables
     container:
@@ -71,7 +71,7 @@ jobs:
           version-patch: ${{needs.env-variables.outputs.runtime-patch}}
           build-configuration: Release
           output-artifact-name: 'linux-runtime-release'
-  build-linux-release:
+  build-linux-linux:
     runs-on: ubuntu-latest
     needs: env-variables
     container:
