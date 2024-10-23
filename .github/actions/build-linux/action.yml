@@ -21,15 +21,19 @@ runs:
   using: "composite"
   steps:
     - name: Build for Linux (${{ inputs.build-configuration }})
+      shell: bash
       run: ./build.sh -c ${{ inputs.build-configuration }} /p:VersionSuffix=${{ inputs.version-patch }} /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false
     - name : Download dotnet install scripts
+      shell: bash
       run: wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
     - name: Retrieve official ASP.Net Core runtime
+      shell: bash
       run: |
         chmod u+x ./dotnet-install.sh
         mkdir -p artifacts/packages/${{ inputs.build-configuration }}/Shipping/aspnetcore-runtime
         ./dotnet-install.sh --runtime aspnetcore --version ${{ inputs.version-runtime }} --os linux --install-dir artifacts/packages/${{ inputs.build-configuration }}/Shipping/aspnetcore-runtime
     - name: Extract generated runtime artifact, add crossgen, symbols, and AspNetCore runtime
+      shell: bash
       run: |
         FULL_VERSION=${{ inputs.version-runtime }}-${{ inputs.version-patch }}
         cd artifacts/packages/${{ inputs.build-configuration }}/Shipping
