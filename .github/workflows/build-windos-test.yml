@@ -25,3 +25,8 @@ jobs:
         run: .\build.cmd -c Release /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false
       - name: List artifacts directory content
         run: dir -Recurse artifacts\Packages\Release\Shipping
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-runtime
+          path: artifacts/packages/Release/Shipping/
