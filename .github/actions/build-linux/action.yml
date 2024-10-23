@@ -2,13 +2,13 @@ name: 'build-linux-runtime'
 description: 'Build Linux runtime'
 inputs:
   version-runtime:
-    description: 'Base version of the runtime (e.g. 8.0.10)
+    description: 'Base version of the runtime (e.g. 8.0.10)'
     required: true
   version-patch:
     description: 'Patch version (like criteo1)'
     required: true
   build-configuration:
-    description: 'Configuration to build (Debug, Release) Note the capital letter
+    description: 'Configuration to build (Debug, Release) Note the capital letter'
     required: true
   output-artifact-name:
     description: 'Name of the artifact that will be uploaded (to be retrieved later in the workflow)'
