@@ -20,7 +20,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Build for Linux (${{ inputs.build-configuration }})
+    - name: Build for Linux
         run: ./build.sh -c ${{ inputs.build-configuration }} /p:VersionSuffix=${{ inputs.version-patch }} /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false
       - name : Download dotnet install scripts
         run: wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
