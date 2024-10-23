@@ -65,7 +65,7 @@ jobs:
         with:
           ref: ${{env.CODE_VERSION}}
       - name: Build
-        uses: ./.github/actions/build-linux.yml
+        uses: ./.github/actions/build-linux
         with:
           version-runtime: ${{needs.env-variables.outputs.runtime-version}}
           version-patch: ${{needs.env-variables.outputs.runtime-patch}}
@@ -82,7 +82,7 @@ jobs:
         with:
           ref: ${{env.CODE_VERSION}}
       - name: Build
-        uses: ./.github/actions/build-linux.yml
+        uses: ./.github/actions/build-linux
         with:
           version-runtime: ${{needs.env-variables.outputs.runtime-version}}
           version-patch: ${{needs.env-variables.outputs.runtime-patch}}
