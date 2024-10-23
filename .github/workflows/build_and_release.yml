@@ -54,7 +54,7 @@ jobs:
 
           echo runtime-version=${RUNTIME_VERSION} >> $GITHUB_OUTPUT
           echo runtime-patch=${RUNTIME_PATCH} >> $GITHUB_OUTPUT
-  build-linux-release:
+  build-linux-debug:
     runs-on: ubuntu-latest
     needs: env-variables
     container:
