@@ -1,0 +1,27 @@
+name: Build Windows runtime (test)
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        description: Tagged version to build
+        required: false
+      commit:
+        type: string
+        required: false
+        description: SHA of the commit to build (no release will be produced)
+  push:
+    tags:
+      - 'v*-*'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out runtime source code
+        uses: actions/checkout@v4
+      - name: Build CLR for Windows
+        run: .\build.cmd -c Release /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false
+      - name: List artifacts directory content
+        run: dir -Recurse artifacts\Packages\Release\Shipping
