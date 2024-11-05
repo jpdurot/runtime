@@ -22,7 +22,7 @@ jobs:
       - name: Check out runtime source code
         uses: actions/checkout@v4
       - name: Build CLR for Windows
-        run: .\build.cmd -c Release /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false
+        run: .\build.cmd -c Release /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:IncludeSymbols=true
       - name: List artifacts directory content
         run: dir -Recurse artifacts\Packages\Release\Shipping
       - name: List artifacts (non shipped) directory content
@@ -35,5 +35,5 @@ jobs:
       - name: Upload Non shipping artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: windows-runtime
+          name: windows-runtime-nonshipping
           path: artifacts/packages/Release/NonShipping/
