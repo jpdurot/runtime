@@ -1,0 +1,28 @@
+name: AspNetCore build
+on:
+  pull_request:
+  # Manual run
+  workflow_dispatch:
+
+jobs:
+  aspnetcore_build:
+    # Comment out this line to test the scripts in a fork
+    if: github.repository == 'dotnet/runtime'
+    name: Build AspNetCore on Windows
+    runs-on: windows-latest
+    steps:
+    - name: Checkout aspnetcore
+      uses: actions/checkout@v4
+      with:
+        repository: 'dotnet/aspnetcore'
+        path: aspnetcore
+        ref: main
+    - name: Build
+      shell: cmd
+      working-directory: .\aspnetcore
+      run: |
+        
+    - name: List files
+      shell: cmd
+      working-directory: .\aspnetcore
+      run: dir -Recurse artifacts
