@@ -6,8 +6,6 @@ on:
 
 jobs:
   aspnetcore_build:
-    # Comment out this line to test the scripts in a fork
-    if: github.repository == 'dotnet/runtime'
     name: Build AspNetCore on Windows
     runs-on: windows-latest
     steps:
@@ -18,10 +16,13 @@ jobs:
         path: aspnetcore
         ref: main
     - name: Build
-      shell: cmd
+      shell: powershell
       working-directory: .\aspnetcore
       run: |
-        
+        .\restore.ps1
+        . .\activate.ps1
+        cd eng
+        .\build.ps1        
     - name: List files
       shell: cmd
       working-directory: .\aspnetcore
