@@ -13,12 +13,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: 'dotnet/aspnetcore'
-        path: aspnetcore
         ref: main
     - name: Build
       shell: powershell
-      working-directory: .\aspnetcore
       run: |
+        dir
         .\restore.ps1
         . .\activate.ps1
         cd eng
