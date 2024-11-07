@@ -24,6 +24,5 @@ jobs:
         cd eng
         .\build.ps1        
     - name: List files
-      shell: cmd
-      working-directory: .\aspnetcore
+      shell: powershell
       run: dir -Recurse artifacts
