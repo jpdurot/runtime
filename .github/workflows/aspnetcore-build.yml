@@ -26,3 +26,8 @@ jobs:
     - name: List files
       shell: powershell
       run: dir -Recurse artifacts
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: aspnetcore-runtime-debug
+        path: artifacts/packages/
