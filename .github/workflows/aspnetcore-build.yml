@@ -18,7 +18,7 @@ jobs:
       shell: powershell
       run: |
         dir
-        .\restore.ps1
+        .\restore.cmd
         . .\activate.ps1
         cd eng
         .\build.ps1        
