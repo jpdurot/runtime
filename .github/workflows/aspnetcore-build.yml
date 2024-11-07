@@ -12,6 +12,7 @@ jobs:
     - name: Checkout aspnetcore
       uses: actions/checkout@v4
       with:
+        submodules: recursive
         repository: 'dotnet/aspnetcore'
         ref: main
     - name: Build
