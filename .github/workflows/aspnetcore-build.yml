@@ -22,7 +22,7 @@ jobs:
         .\restore.cmd
         . .\activate.ps1
         cd eng
-        .\build.ps1 -c Debug -Pack /p:VersionSuffix=criteo1       
+        .\build.ps1 -c Debug -Pack -Publish /p:VersionSuffix=criteo1       
     - name: List files
       shell: powershell
       run: dir -Recurse artifacts
