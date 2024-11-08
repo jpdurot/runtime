@@ -23,10 +23,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Build CLR for Windows
         run: .\build.cmd -c Release /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:IncludeSymbols=true
-      - name: List artifacts directory content
-        run: dir -Recurse artifacts\Packages\Release\Shipping
-      - name: List artifacts (non shipped) directory content
-        run: dir -Recurse artifacts\Packages\Release\NonShipping
+      - name: Generate layout
+        run: |
+          cd src/tests
+          .\build.cmd -c Release -generatelayoutonly
+      - name: List tests generated directory
+        run: dir -Recurse artifacts\tests\coreclr
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -37,3 +39,8 @@ jobs:
         with:
           name: windows-runtime-nonshipping
           path: artifacts/packages/Release/NonShipping/
+      - name: Upload tests artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-runtime-tests
+          path: artifacts/tests/coreclr/
