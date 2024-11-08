@@ -22,7 +22,7 @@ jobs:
       - name: Check out runtime source code
         uses: actions/checkout@v4
       - name: Build CLR for Windows
-        run: .\build.cmd -c Release -Pack -Publish /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:IncludeSymbols=true
+        run: .\build.cmd -c Release --pack --publish /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:IncludeSymbols=true
       - name: Generate layout
         run: |
           cd src/tests
