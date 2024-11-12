@@ -22,11 +22,7 @@ jobs:
       - name: Check out runtime source code
         uses: actions/checkout@v4
       - name: Build CLR for Windows
-        run: .\build.cmd -c Release -v detailed -restore -build -pack -publish /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:IncludeSymbols=true
-      - name: Generate layout
-        run: |
-          cd src/tests
-          .\build.cmd Release -generatelayoutonly
+        run: .\build.cmd -c Release /p:VersionSuffix=criteo1 /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:IncludeSymbols=true /p:SkipArchivesBuild=false
       - name: List tests generated directory
         run: dir -Recurse artifacts\tests\coreclr
       - name: Upload artifacts
