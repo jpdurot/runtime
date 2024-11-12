@@ -22,7 +22,7 @@ runs:
   steps:
     - name: Build for Linux (${{ inputs.build-configuration }})
       shell: bash
-      run: ./build.sh -c ${{ inputs.build-configuration }} /p:VersionSuffix=${{ inputs.version-patch }} /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false
+      run: ./build.sh -c ${{ inputs.build-configuration }} /p:VersionSuffix=${{ inputs.version-patch }} /p:StabilizePackageVersion=false /p:OfficialBuildId=20201010.1 /p:NativeOptimizationDataSupported=false /p:SkipArchivesBuild=false
     - name : Download dotnet install scripts
       shell: bash
       run: wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
@@ -42,10 +42,14 @@ runs:
         tar -xzvf ../dotnet-runtime-${FULL_VERSION}-linux-x64.tar.gz
         cd shared/Microsoft.NETCore.App/${FULL_VERSION}
         tar -xzvf ../../../../dotnet-crossgen2-${FULL_VERSION}-linux-x64.tar.gz
-        tar -xzvf ../../../../dotnet-nethost-symbols-linux-x64-${FULL_VERSION}.tar.gz
+        tar -xzvf ../../../../dotnet-runtime-symbols-linux-x64-${FULL_VERSION}.tar.gz
         cd ../../../..
         cp -R aspnetcore-runtime/shared/Microsoft.AspNetCore.App dotnet-runtime/shared/Microsoft.AspNetCore.App
         mv dotnet-runtime/shared/Microsoft.AspNetCore.App/${{env.RUNTIME_VERSION}} dotnet-runtime/shared/Microsoft.AspNetCore.App/${FULL_VERSION}
+        dotnet tool install dotnet-symbol -g
+        cd dotnet-runtime/shared/Microsoft.AspNetCore.App/${FULL_VERSION}
+        dotnet-symbol --symbols *
+        cd ../../../..
         sed -i "s/${{env.RUNTIME_VERSION}}/${FULL_VERSION}/g" dotnet-runtime/shared/Microsoft.AspNetCore.App/${FULL_VERSION}/Microsoft.AspNetCore.App.runtimeconfig.json
         cd dotnet-runtime
         tar -zcvf ../aspnetcore-runtime-${FULL_VERSION}-linux-x64.tar.gz .
