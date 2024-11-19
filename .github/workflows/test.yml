@@ -21,10 +21,14 @@ jobs:
           ./dotnet-install.sh --os linux --install-dir dotnet-sdk
           chmod u+x dotnet-sdk/dotnet
           dotnet-sdk/dotnet tool install dotnet-symbol -g
+          cat << \EOF >> ~/.bash_profile
+          # Add .NET Core SDK tools
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          EOF
+          export PATH="$PATH:/github/home/.dotnet/tools"
       - name: Test
         shell: bash
         run: |
-          ls -l -R
           dotnet-symbol
     
     
