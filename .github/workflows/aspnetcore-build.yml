@@ -1,0 +1,33 @@
+name: AspNetCore build
+on:
+  pull_request:
+  # Manual run
+  workflow_dispatch:
+
+jobs:
+  aspnetcore_build:
+    name: Build AspNetCore on Windows
+    runs-on: windows-latest
+    steps:
+    - name: Checkout aspnetcore
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        repository: 'dotnet/aspnetcore'
+        ref: main
+    - name: Build
+      shell: powershell
+      run: |
+        dir
+        .\restore.cmd
+        . .\activate.ps1
+        cd eng
+        .\build.ps1 -c Debug -Pack -Publish /p:VersionSuffix=criteo1       
+    - name: List files
+      shell: powershell
+      run: dir -Recurse artifacts
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: aspnetcore-runtime-debug
+        path: artifacts/installers/
