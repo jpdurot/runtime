@@ -25,6 +25,6 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          ${{env.DOTNET_TOOLS_DIR]]/dotnet-symbol
+          ${{env.DOTNET_TOOLS_DIR}}/dotnet-symbol
     
     
