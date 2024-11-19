@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/dotnet-buildtools/prereqs:centos-stream8
-
+    env:
+      DOTNET_TOOLS_DIR: /github/home/.dotnet/tools
     steps:
       - name : Download dotnet install scripts
         shell: bash
@@ -21,16 +22,9 @@ jobs:
           ./dotnet-install.sh --os linux --install-dir dotnet-sdk
           chmod u+x dotnet-sdk/dotnet
           dotnet-sdk/dotnet tool install dotnet-symbol -g
-          cat << \EOF >> ~/.bash_profile
-          # Add .NET Core SDK tools
-          export PATH="$PATH:/github/home/.dotnet/tools"
-          EOF
-          export PATH="$PATH:/github/home/.dotnet/tools"
       - name: Test
         shell: bash
         run: |
-          echo $PATH
-          ls  -l -R /github/home/.dotnet/tools
-          dotnet-symbol
+          ${{env.DOTNET_TOOLS_DIR]]/dotnet-symbol
     
     
