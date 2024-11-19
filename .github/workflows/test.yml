@@ -25,5 +25,6 @@ jobs:
         shell: bash
         run: |
           ls -l -R
+          dotnet-symbol
     
     
