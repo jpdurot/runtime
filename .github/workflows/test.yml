@@ -1,0 +1,29 @@
+name: Test
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet-buildtools/prereqs:centos-stream8
+
+    steps:
+      - name : Download dotnet install scripts
+        shell: bash
+        run: |
+          wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+          chmod u+x ./dotnet-install.sh
+      - name: Install .NET SDK and dotnet-symbol
+        shell: bash
+        run: |
+          mkdir -p dotnet-sdk
+          ./dotnet-install.sh --os linux --install-dir dotnet-sdk
+          chmod u+x dotnet-sdk/dotnet
+          dotnet-sdk/dotnet tool install dotnet-symbol -g
+      - name: Test
+        shell: bash
+        run: |
+          ls -l -R
+    
+    
