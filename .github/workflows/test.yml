@@ -25,7 +25,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          DOTNET_HOME=$(cd dotnet-sdk ; pwd)
+          DOTNET_ROOT=$(cd dotnet-sdk ; pwd)
           ${{env.DOTNET_TOOLS_DIR}}/dotnet-symbol
     
     
