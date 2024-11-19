@@ -29,6 +29,8 @@ jobs:
       - name: Test
         shell: bash
         run: |
+          echo $PATH
+          ls  -l -R /github/home/.dotnet/tools
           dotnet-symbol
     
     
