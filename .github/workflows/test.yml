@@ -21,7 +21,7 @@ jobs:
           mkdir -p dotnet-sdk
           ./dotnet-install.sh --os linux --install-dir dotnet-sdk
           chmod u+x dotnet-sdk/dotnet
-          dotnet new tool-manifest
+          dotnet-sdk/dotnet new tool-manifest
           dotnet-sdk/dotnet tool install dotnet-symbol --local
       - name: Test
         shell: bash
