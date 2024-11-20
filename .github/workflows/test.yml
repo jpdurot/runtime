@@ -22,14 +22,14 @@ jobs:
           ./dotnet-install.sh --os linux --install-dir dotnet-sdk
           chmod u+x dotnet-sdk/dotnet
           dotnet-sdk/dotnet new tool-manifest
-          dotnet-sdk/dotnet tool install dotnet-symbol --local
+          dotnet-sdk/dotnet tool install dotnet-symbol --global
       - name: Test
         shell: bash
         run: |
           DOTNET_ROOT=$(cd dotnet-sdk ; pwd)
           #dotnet-sdk/dotnet --list-runtimes
           
-          dotnet-sdk/dotnet tool list --local
+          dotnet-sdk/dotnet tool list --global
           dotnet-sdk/dotnet tool run symbol *
     
     
