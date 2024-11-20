@@ -30,6 +30,6 @@ jobs:
           #dotnet-sdk/dotnet --list-runtimes
           
           dotnet-sdk/dotnet tool list --local
-          dotnet-sdk/dotnet run tool symbol *
+          dotnet-sdk/dotnet tool run symbol *
     
     
