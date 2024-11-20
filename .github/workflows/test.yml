@@ -26,6 +26,7 @@ jobs:
         shell: bash
         run: |
           DOTNET_ROOT=$(cd dotnet-sdk ; pwd)
+          dotnet-sdk/dotnet --list-runtimes
           ${{env.DOTNET_TOOLS_DIR}}/dotnet-symbol
     
     
